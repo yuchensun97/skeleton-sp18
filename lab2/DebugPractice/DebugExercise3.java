@@ -10,7 +10,7 @@ public class DebugExercise3 {
             double cost = in.readDouble();
             int numAvailable = in.readInt();
             if (foodType.equals("turnip")) {
-                int newTotal = totalTurnips + numAvailable;
+                int newTotal = totalTurnips + numAvailable; // sth. wrong with the line: kroger turnip 0.45 -387128732
                 totalTurnips = newTotal;
             }
             in.readLine();
