@@ -16,7 +16,6 @@ public class LinkedListDeque<T> {
     private IntNode<T> sentinel;
     private int size;
 
-
     public LinkedListDeque() {
         /**
          * Initialize an empty list
