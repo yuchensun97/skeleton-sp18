@@ -16,6 +16,7 @@ public class LinkedListDeque<T> {
     private IntNode<T> sentinel;
     private int size;
 
+
     public LinkedListDeque() {
         /**
          * Initialize an empty list
@@ -138,5 +139,19 @@ public class LinkedListDeque<T> {
             ptr = ptr.next;
         }
         return ith_item;
+    }
+
+    private T getRecursive(int index, IntNode<T> p) {
+        if (index == 0) {
+            return p.item;
+        }
+        return getRecursive(index-1, p.next);
+    }
+
+    public T getRecursive(int index){
+        if (size == 0) {
+            return null;
+        }
+        return getRecursive(index, sentinel.next);
     }
 }
