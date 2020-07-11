@@ -78,8 +78,6 @@ public class LinkedListDeque<T> {
          */
         IntNode<T> ptr = sentinel.next;
         while (!ptr.equals(sentinel)) {
-            /** To be filled */
-            /** how to convert a generic type to String??? */
             System.out.print(ptr.item + " ");
             ptr = ptr.next;
         }
