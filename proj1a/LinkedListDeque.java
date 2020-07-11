@@ -126,18 +126,11 @@ public class LinkedListDeque<T> {
         IntNode<T> ptr = sentinel.next;
         T ith_item;
         int i = 0;
-        while (true) {
-            if (ptr.equals(sentinel)) {
-                ptr = ptr.next;
-                continue;
-            }
-            if (i == index) {
-                ith_item = ptr.item;
-                break;
-            }
-            i += 1;
+        while (i < index) {
             ptr = ptr.next;
+            i += 1;
         }
+        ith_item = ptr.item;
         return ith_item;
     }
 
