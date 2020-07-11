@@ -60,9 +60,9 @@ public class LinkedListDeque<T> {
          * returns true if deque is empty, false otherwise
          */
         if (size==0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public int size() {
