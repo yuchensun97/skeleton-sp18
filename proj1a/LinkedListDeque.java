@@ -1,5 +1,4 @@
 public class LinkedListDeque<T> {
-
     private static class IntNode<TT> {
         private IntNode<TT> prev; // the previous node
         private TT item; // data

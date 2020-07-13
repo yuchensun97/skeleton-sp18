@@ -1,5 +1,4 @@
 public class ArrayDeque<T> {
-
     private T[] items;
     private int size;
     private int head;
@@ -24,7 +23,7 @@ public class ArrayDeque<T> {
     }
 
     private int minusOne(int index) {
-        int newIndex = (index + items.length -1) % items.length;
+        int newIndex = (index + items.length - 1) % items.length;
         return newIndex;
     }
 
@@ -56,7 +55,7 @@ public class ArrayDeque<T> {
     }
 
     private void downScaling() {
-        reSize(items.length / RFACTOR);
+        reSize(items.length / RFACTOR + 1);
     }
 
     public void addFirst(T item) {
@@ -84,7 +83,7 @@ public class ArrayDeque<T> {
         return false;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
@@ -104,6 +103,7 @@ public class ArrayDeque<T> {
             return null;
         }
         T firstItem = items[head];
+        items[head] = null;
         head = addOne(head);
         size -= 1;
         if (size <= items.length / RFACTOR && items.length >= 16) {
@@ -118,6 +118,7 @@ public class ArrayDeque<T> {
         }
         tail = minusOne(tail);
         T lastItem = items[tail];
+        items[tail] = null;
         size -= 1;
         if (size <= items.length / RFACTOR && items.length >= 16) {
             downScaling();
