@@ -10,7 +10,6 @@ public class LinkedListDeque<T> {
             next = n;
         }
     }
-
     /** initializtion */
     private IntNode<T> sentinel;
     private int size;
