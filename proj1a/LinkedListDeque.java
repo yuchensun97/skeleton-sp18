@@ -1,11 +1,11 @@
 public class LinkedListDeque<T> {
 
-    private static class IntNode<TT>{
-        public IntNode<TT> prev; // the previous node
-        public TT item; // data
-        public IntNode<TT> next; // the next node
+    private static class IntNode<TT> {
+        private IntNode<TT> prev; // the previous node
+        private TT item; // data
+        private IntNode<TT> next; // the next node
 
-        public IntNode(TT t, IntNode<TT> p, IntNode<TT> n){
+        public IntNode(TT t, IntNode<TT> p, IntNode<TT> n) {
             item = t;
             prev = p;
             next = n;
@@ -20,13 +20,13 @@ public class LinkedListDeque<T> {
         /**
          * Initialize an empty list
          */
-        sentinel = new IntNode<>(null,null,null); // how to initialize T type?
+        sentinel = new IntNode<>(null, null, null); // how to initialize T type?
         sentinel.next = sentinel;
         sentinel.prev = sentinel.next;
         size = 0;
     }
 
-    public LinkedListDeque(T item){
+    public LinkedListDeque(T item) {
         /**
          * Initialize a deque with the front item
          */
@@ -135,10 +135,10 @@ public class LinkedListDeque<T> {
         if (index == 0) {
             return p.item;
         }
-        return getRecursive(index-1, p.next);
+        return getRecursive(index - 1, p.next);
     }
 
-    public T getRecursive(int index){
+    public T getRecursive(int index) {
         if (size == 0) {
             return null;
         }

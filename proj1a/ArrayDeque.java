@@ -6,16 +6,16 @@ public class ArrayDeque<T> {
     private int tail;
     private int RFACTOR = 4;
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
         head = 0;
         tail = 0;
     }
 
-    private void Resize(int new_size) {
+    private void reSize(int new_size) {
         T[] resize = (T[]) new Object[new_size];
-        System.arraycopy(items, head, resize, 0, size-tail);
+        System.arraycopy(items, head, resize, 0, size - tail);
         System.arraycopy(items, 0, resize, head, tail);
         head = 0;
         tail = size;
@@ -25,27 +25,26 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         if (head == 0) {
             head = items.length - 1;
-        }
-        else{
+        }else{
             head -= 1;
         }
         items[head] = item;
         size += 1;
         if (head == tail) {
-            Resize(size *RFACTOR);
+            reSize(size * RFACTOR);
         }
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
         items[tail] = item;
         size += 1;
         tail += 1;
         if (head == tail || tail == items.length) {
-            Resize(size * RFACTOR);
+            reSize(size * RFACTOR);
         }
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         if (size == 0) {
             return true;
         }
@@ -56,7 +55,7 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         if (size == 0) {
             return;
         }
@@ -70,36 +69,36 @@ public class ArrayDeque<T> {
         }
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
-        T first_item = items[head];
+        T firstItem = items[head];
         head += 1;
         if (head == items.length) {
             head = 0;
         }
         size -= 1;
         if (size <= 0.25 * items.length && items.length >= 16) {
-           Resize((int)(0.25 * items.length + 1)); 
+            reSize((int) (0.25 * items.length + 1)); 
         }
-        return first_item;
+        return firstItem;
     }
 
-    public T removeLast(){
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
-        T last_item = items[tail-1];
+        T lastItem = items[tail - 1];
         tail -= 1;
         size -= 1;
         if (size <= 0.25 * items.length && items.length >= 16) {
-            Resize((int)(0.25 * items.length + 1));
+            reSize((int) (0.25 * items.length + 1));
         }
-        return last_item;
+        return lastItem;
     }
 
-    public T get(int index){
+    public T get(int index) {
         if (size == 0) {
             return null;
         }
