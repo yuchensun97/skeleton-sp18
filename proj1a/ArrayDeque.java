@@ -4,7 +4,7 @@ public class ArrayDeque<T> {
     private int size;
     private int head;
     private int tail;
-    private int RFACTOR = 4;
+    private int RFACTOR = 2;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -15,12 +15,8 @@ public class ArrayDeque<T> {
 
     private void reSize(int new_size) {
         T[] resize = (T[]) new Object[new_size];
-        if (tail > head) {
-            System.arraycopy(items, head, resize, 0, size);
-        }else {
-            System.arraycopy(items, head, resize, 0, size - tail);
-            System.arraycopy(items, 0, resize, head, tail);
-        }
+        System.arraycopy(items, head, resize, 0, items.length - head);
+        System.arraycopy(items, 0, resize, items.length - head, head);
         head = 0;
         tail = size;
         items = resize;
@@ -29,7 +25,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         if (head == 0) {
             head = items.length - 1;
-        }else{
+        } else{
             head -= 1;
         }
         items[head] = item;
