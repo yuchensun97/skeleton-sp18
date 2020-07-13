@@ -15,8 +15,12 @@ public class ArrayDeque<T> {
 
     private void reSize(int new_size) {
         T[] resize = (T[]) new Object[new_size];
-        System.arraycopy(items, head, resize, 0, size - tail);
-        System.arraycopy(items, 0, resize, head, tail);
+        if (tail > head) {
+            System.arraycopy(items, head, resize, 0, size);
+        }else {
+            System.arraycopy(items, head, resize, 0, size - tail);
+            System.arraycopy(items, 0, resize, head, tail);
+        }
         head = 0;
         tail = size;
         items = resize;

@@ -26,16 +26,6 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(T item) {
-        /**
-         * Initialize a deque with the front item
-         */
-        sentinel = new IntNode<>(null, null,null); // how to inialize T type?
-        sentinel.next = new IntNode<>(item, sentinel, sentinel);
-        sentinel.prev = sentinel.next;
-        size = 1;
-    }
-
     public void addFirst(T item) {
         /**
          * adds item to the front of the deque
