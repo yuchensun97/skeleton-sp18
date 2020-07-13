@@ -48,7 +48,7 @@ public class LinkedListDeque<T> {
         /**
          * returns true if deque is empty, false otherwise
          */
-        if (size==0) {
+        if (size == 0) {
             return true;
         }
         return false;
@@ -81,11 +81,11 @@ public class LinkedListDeque<T> {
             return null;
         }
         /**how to deal with type */
-        T first_item = sentinel.next.item;
+        T firstItem = sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.prev = sentinel;
         size -= 1;
-        return first_item;
+        return firstItem;
     }
 
     public T removeLast() {
@@ -96,11 +96,11 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         }
-        T last_item = sentinel.prev.item;
+        T lastItem = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
         size -= 1;
-        return last_item;
+        return lastItem;
     }
 
     public T get(int index) {
@@ -111,14 +111,14 @@ public class LinkedListDeque<T> {
             return null;
         }
         IntNode<T> ptr = sentinel.next;
-        T ith_item;
+        T ithItem;
         int i = 0;
         while (i < index) {
             ptr = ptr.next;
             i += 1;
         }
-        ith_item = ptr.item;
-        return ith_item;
+        ithItem = ptr.item;
+        return ithItem;
     }
 
     private T getRecursive(int index, IntNode<T> p) {

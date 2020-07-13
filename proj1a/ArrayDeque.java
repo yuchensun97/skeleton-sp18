@@ -4,7 +4,7 @@ public class ArrayDeque<T> {
     private int size;
     private int head;
     private int tail;
-    private int RFACTOR = 2;
+    private int RFACTOR = 4;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -13,34 +13,67 @@ public class ArrayDeque<T> {
         tail = 0;
     }
 
-    private void reSize(int new_size) {
-        T[] resize = (T[]) new Object[new_size];
-        System.arraycopy(items, head, resize, 0, items.length - head);
-        System.arraycopy(items, 0, resize, items.length - head, head);
+    /**
+     * Circular addition
+     * @param index
+     * @return results of circular addition
+     */
+    private int addOne(int index) {
+        int newIndex =  (index + 1) % items.length;
+        return newIndex;
+    }
+
+    private int minusOne(int index) {
+        int newIndex = (index + items.length -1) % items.length;
+        return newIndex;
+    }
+
+    private int addition(int idxOne, int idxTwo) {
+        int newIndex = (idxOne + idxTwo) % items.length;
+        return newIndex;
+    }
+
+    /**
+     * rearrange items & resize
+     * @param num
+     */
+    private void reSize(int num) {
+        T[] resize = (T[]) new Object[num];
+        int curr = head;
+        int i = 0;
+        while (i < size) {
+            resize[i] = items[curr];
+            curr = addOne(curr);
+            i += 1;
+        }
+        items = resize;
         head = 0;
         tail = size;
-        items = resize;
+    }
+
+    private void upScaling() {
+        reSize(RFACTOR * items.length);
+    }
+
+    private void downScaling() {
+        reSize(items.length / RFACTOR);
     }
 
     public void addFirst(T item) {
-        if (head == 0) {
-            head = items.length - 1;
-        } else{
-            head -= 1;
-        }
+        head = minusOne(head);
         items[head] = item;
         size += 1;
         if (head == tail) {
-            reSize(size * RFACTOR);
+            upScaling();
         }
     }
 
     public void addLast(T item) {
         items[tail] = item;
         size += 1;
-        tail += 1;
-        if (head == tail || tail == items.length) {
-            reSize(size * RFACTOR);
+        tail = addOne(tail);
+        if (head == tail) {
+            upScaling();
         }
     }
 
@@ -62,10 +95,7 @@ public class ArrayDeque<T> {
         int curr = head;
         while (curr != tail) {
             System.out.print(items[curr] + " ");
-            curr += 1;
-            if (curr == items.length) {
-                curr = 0;
-            }
+            curr = addOne(curr);
         }
     }
 
@@ -74,13 +104,10 @@ public class ArrayDeque<T> {
             return null;
         }
         T firstItem = items[head];
-        head += 1;
-        if (head == items.length) {
-            head = 0;
-        }
+        head = addOne(head);
         size -= 1;
-        if (size <= 0.25 * items.length && items.length >= 16) {
-            reSize((int) (0.25 * items.length + 1)); 
+        if (size <= items.length / RFACTOR && items.length >= 16) {
+            downScaling();
         }
         return firstItem;
     }
@@ -89,11 +116,11 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        T lastItem = items[tail - 1];
-        tail -= 1;
+        tail = minusOne(tail);
+        T lastItem = items[tail];
         size -= 1;
-        if (size <= 0.25 * items.length && items.length >= 16) {
-            reSize((int) (0.25 * items.length + 1));
+        if (size <= items.length / RFACTOR && items.length >= 16) {
+            downScaling();
         }
         return lastItem;
     }
@@ -102,10 +129,7 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        index += head;
-        if (index >= items.length) {
-            index -= items.length;
-        }
+        index = addition(head, index);
         return items[index];
     }
 }
