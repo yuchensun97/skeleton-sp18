@@ -92,6 +92,7 @@ public class ArrayDeque<T> {
         }
         T last_item = items[tail-1];
         tail -= 1;
+        size -= 1;
         if (size <= 0.25 * items.length && items.length >= 16) {
             Resize((int)(0.25 * items.length + 1));
         }
