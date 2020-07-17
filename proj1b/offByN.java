@@ -1,5 +1,4 @@
 public class OffByN implements CharacterComparator {
-
     private int n;
     public OffByN(int N) {
         n = N;
