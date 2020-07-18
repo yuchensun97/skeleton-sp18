@@ -29,4 +29,21 @@ public class Palindrome {
         }
         return true;
     }
+
+    public boolean isPalindrome(String word, CharacterComparator cc) {
+        if (word.length() <= 1) {
+            return true;
+        }
+        Deque<Character> wordDeque = wordToDeque(word);
+        boolean bool = true;
+        while (wordDeque.size() > 1) {
+            char firstItem = wordDeque.removeFirst();
+            char lastItem = wordDeque.removeLast();
+            bool = cc.equalChars(firstItem, lastItem);
+            if (!bool) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

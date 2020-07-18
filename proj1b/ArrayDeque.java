@@ -1,12 +1,12 @@
-public class ArrayDeque<T> implements Deque<T> {
-    private T[] items;
+public class ArrayDeque<Item> implements Deque<Item> {
+    private Item[] items;
     private int size;
     private int head;
     private int tail;
     private int RFACTOR = 4;
 
     public ArrayDeque() {
-        items = (T[]) new Object[8];
+        items = (Item[]) new Object[8];
         size = 0;
         head = 0;
         tail = 0;
@@ -37,7 +37,7 @@ public class ArrayDeque<T> implements Deque<T> {
      * @param num
      */
     private void reSize(int num) {
-        T[] resize = (T[]) new Object[num];
+        Item[] resize = (Item[]) new Object[num];
         int curr = head;
         int i = 0;
         while (i < size) {
@@ -59,7 +59,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public void addFirst(T item) {
+    public void addFirst(Item item) {
         head = minusOne(head);
         items[head] = item;
         size += 1;
@@ -69,7 +69,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public void addLast(T item) {
+    public void addLast(Item item) {
         items[tail] = item;
         size += 1;
         tail = addOne(tail);
@@ -104,11 +104,11 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public T removeFirst() {
+    public Item removeFirst() {
         if (size == 0) {
             return null;
         }
-        T firstItem = items[head];
+        Item firstItem = items[head];
         items[head] = null;
         head = addOne(head);
         size -= 1;
@@ -119,12 +119,12 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public T removeLast() {
+    public Item removeLast() {
         if (size == 0) {
             return null;
         }
         tail = minusOne(tail);
-        T lastItem = items[tail];
+        Item lastItem = items[tail];
         items[tail] = null;
         size -= 1;
         if (size <= items.length / RFACTOR && items.length >= 16) {
@@ -134,7 +134,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public T get(int index) {
+    public Item get(int index) {
         if (size == 0) {
             return null;
         }

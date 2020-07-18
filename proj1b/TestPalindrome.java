@@ -34,4 +34,14 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome(e));
         assertFalse(palindrome.isPalindrome(f));
     }
+
+    @Test
+    public void testIsPalindromeCC() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("flake", cc));
+        assertTrue(palindrome.isPalindrome("", cc));
+        assertTrue(palindrome.isPalindrome("abb",cc));
+        assertFalse(palindrome.isPalindrome("coc",cc));
+        assertFalse(palindrome.isPalindrome("^&&9", cc));
+    }
 }
