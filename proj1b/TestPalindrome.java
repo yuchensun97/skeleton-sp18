@@ -40,8 +40,8 @@ public class TestPalindrome {
         OffByOne cc = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake", cc));
         assertTrue(palindrome.isPalindrome("", cc));
-        assertTrue(palindrome.isPalindrome("abb",cc));
-        assertFalse(palindrome.isPalindrome("coc",cc));
+        assertTrue(palindrome.isPalindrome("abb", cc));
+        assertFalse(palindrome.isPalindrome("coc", cc));
         assertFalse(palindrome.isPalindrome("^&&9", cc));
     }
 }
