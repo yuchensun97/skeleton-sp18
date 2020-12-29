@@ -16,7 +16,7 @@ public class Percolation {
     public Percolation(int N) {
         // DONE: create N-by-N grid, with all sites initially blocked
         size = N;
-        grid = new WeightedQuickUnionUF(N*N + 2); // N*N for virtual top site, N*N + 1 for virtual bottom site
+        grid = new WeightedQuickUnionUF(N * N + 2); // N*N for virtual top site, N*N + 1 for virtual bottom site
         isOpenBool = new boolean[N][N];
     }
 
@@ -53,7 +53,7 @@ public class Percolation {
             int nCol = col + dcol;
             if (nRow < 0 || nRow >= size || nCol < 0 || nCol >= size) {
                 continue;
-            }else if (isOpenBool[nRow][nCol]) {
+            } else if (isOpenBool[nRow][nCol]) {
                 // union the current grid and its open neighbour
                 int nIdx = getIndex(nRow, nCol); // neighbour's 1d index
                 grid.union(currIdx, nIdx);
@@ -62,7 +62,7 @@ public class Percolation {
 
         // if the open the bottom site, check whether it is full after connection
         // if the bottom site is full, connect it with the virtual bottom site
-        if (row == size -1) {
+        if (row == size - 1) {
             boolean fullBool = isFull(row, col);
             if (fullBool) {
                 grid.union(currIdx, size * size + 1);
@@ -75,7 +75,7 @@ public class Percolation {
         if (!isOpenBool[row][col]) {
             isOpenBool[row][col] = true;
             unionNeighbour(row, col);
-            numSites ++;
+            numSites++;
         }  
     }
 

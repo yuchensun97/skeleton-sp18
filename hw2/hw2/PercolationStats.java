@@ -10,8 +10,8 @@ public class PercolationStats {
     private PercolationFactory test;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        //TODO: perform T independent experiments on an N-by-N grid
-        if (N <= 0 || T<= 0) {
+        //DONE: perform T independent experiments on an N-by-N grid
+        if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
         numTest = T;
@@ -35,17 +35,17 @@ public class PercolationStats {
     }
 
     public double mean() {
-        //TODO: sample mean of percolation threshold
+        //DONE: sample mean of percolation threshold
         return StdStats.mean(testRecord);
     }
 
     public double stddev() {
-        //TODO: sample standard deviation of percolation threshold
+        //DONE: sample standard deviation of percolation threshold
         return StdStats.stddev(testRecord);
     }
 
     public double confidenceLow() {
-        //TODO: low endpoint of 95% confidence interval
+        //DONE: low endpoint of 95% confidence interval
         double mean = this.mean();
         double var = this.stddev();
         double lowBound = mean - 1.96 * var / Math.sqrt((double) numTest);
@@ -53,7 +53,7 @@ public class PercolationStats {
     }
 
     public double confidenceHigh() {
-        //TODO: high endpoint of 95% confidence interval
+        //DONE: high endpoint of 95% confidence interval
         double mean = this.mean();
         double var = this.stddev();
         double highBound = mean + 1.96 * var / Math.sqrt((double) numTest);
