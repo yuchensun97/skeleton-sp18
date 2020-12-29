@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private WeightedQuickUnionUF grid;
+    private WeightedQuickUnionUF virtualBottom;
     private int size;
     private int numSites = 0;
     private boolean[][] isOpenBool;
@@ -17,6 +18,7 @@ public class Percolation {
         // DONE: create N-by-N grid, with all sites initially blocked
         size = N;
         grid = new WeightedQuickUnionUF(N * N + 2); // N*N for virtual top site, N*N + 1 for virtual bottom site
+        virtualBottom = new WeightedQuickUnionUF(N * N + 2);
         isOpenBool = new boolean[N][N];
     }
 
@@ -43,6 +45,9 @@ public class Percolation {
         // if open the site in the top row, connect with virtual top site
         if (row == 0) {
             grid.union(currIdx, size * size);
+            virtualBottom.union(currIdx, size * size);
+        } else if (row == size - 1) {
+            virtualBottom.union(currIdx, size * size + 1);
         }
 
         for (int i = 0; i < 4; i++) {
@@ -57,6 +62,7 @@ public class Percolation {
                 // union the current grid and its open neighbour
                 int nIdx = getIndex(nRow, nCol); // neighbour's 1d index
                 grid.union(currIdx, nIdx);
+                virtualBottom.union(currIdx, nIdx);
             }
         }
 
@@ -73,8 +79,15 @@ public class Percolation {
     public void open(int row, int col) {
         // DONE: open the site (row, col) if it is not open already
         if (!isOpenBool[row][col]) {
+            if (size == 1) {
+                grid.union(0, 1);
+                grid.union(0, 2);
+                virtualBottom.union(0, 1);
+                virtualBottom.union(0, 2);
+            }else {
+                unionNeighbour(row, col);
+            }
             isOpenBool[row][col] = true;
-            unionNeighbour(row, col);
             numSites++;
         }  
     }
@@ -98,7 +111,7 @@ public class Percolation {
 
     public boolean percolates() {
         //DONE: does the system percolate
-        return grid.connected(size * size, size * size + 1);
+        return virtualBottom.connected(size * size, size * size + 1);
     }
 
     public static void main(String[] args) {
@@ -129,9 +142,36 @@ public class Percolation {
         // System.out.println("All test pass!");
 
         // test 2
-        Percolation test = new Percolation(5);
-        test.open(1, 2);
-        test.open(2, 1);
-        test.open(0, 2);
+        // Percolation test = new Percolation(5);
+        // test.open(1, 2);
+        // test.open(2, 1);
+        // test.open(0, 2);
+
+        // test 3
+        // Percolation test = new Percolation(6);
+        // test.open(0, 5);
+        // test.open(1, 5);
+        // test.open(2, 5);
+        // test.open(3, 5);
+        // test.open(4, 5);
+        // test.open(4, 4);
+        // test.open(3, 3);
+        // test.open(2, 3);
+        // test.open(1, 3);
+        // test.open(1, 2);
+        // test.open(1, 1);
+        // test.open(1, 0);
+        // test.open(2, 0);
+        // test.open(3, 0);
+        // test.open(4, 0);
+        // test.open(4, 1);
+        // test.open(5, 1);
+        // test.open(4, 3);
+        // test.percolates();
+
+        // test 4
+        Percolation test = new Percolation(1);
+        test.open(0, 0);
+        test.percolates();
     }
 }
