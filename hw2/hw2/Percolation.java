@@ -81,9 +81,6 @@ public class Percolation {
 
     public void open(int row, int col) {
         // DONE: open the site (row, col) if it is not open already
-        if (row < 0 || row >= size || col < 0 || col >= size) {
-            throw new IllegalArgumentException();
-        }
         if (!isOpenBool[row][col]) {
             if (size == 1) {
                 grid.union(0, 1);
