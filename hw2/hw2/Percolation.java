@@ -20,7 +20,7 @@ public class Percolation {
             throw new IllegalArgumentException();
         }
         size = N;
-        grid = new WeightedQuickUnionUF(N * N + 2); // N*N for virtual top site, N*N + 1 for virtual bottom site
+        grid = new WeightedQuickUnionUF(N * N + 2);
         virtualBottom = new WeightedQuickUnionUF(N * N + 2);
         isOpenBool = new boolean[N][N];
     }
@@ -90,7 +90,7 @@ public class Percolation {
                 grid.union(0, 2);
                 virtualBottom.union(0, 1);
                 virtualBottom.union(0, 2);
-            }else {
+            } else {
                 unionNeighbour(row, col);
             }
             isOpenBool[row][col] = true;
